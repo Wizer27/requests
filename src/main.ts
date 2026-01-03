@@ -1,8 +1,13 @@
 import * as crypto from 'crypto';
+import axios,{AxiosResponse} from 'axios';
+import * as dotenv from 'dotenv';
 
-// Более простой вариант - без интерфейсов
+
+
+const api_url:string = "http://0.0.0.0:8080";
+dotenv.config();
 export function generateSignature(data: Record<string, any>): string {
-    const KEY = process.env.SIGNATURE_KEY || '';
+    const KEY = process.env.SIGNATURE || '';
 
     // Копируем объект и удаляем signature если есть
     const dataToVerify = { ...data };
@@ -25,14 +30,16 @@ export function generateSignature(data: Record<string, any>): string {
     return hmac.digest('hex');
 }
 
+type dict = { [key:string]:string};
 
-const data = {
-    username:"ivan",
-    age:17
+
+async function ask_ai(data:dict):Promise<string>{
+    return "test"
 }
 
-const signature = generateSignature(data);
-console.log(signature);
+
+
+
 
 
 
