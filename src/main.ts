@@ -33,9 +33,20 @@ export function generateSignature(data: Record<string, any>): string {
 type dict = { [key:string]:string};
 
 
-async function ask_ai(data:dict):Promise<string>{
-    return "test"
+async function register(username:string,hash_psw:string):Promise<boolean>{
+    const data:dict = {
+        "username":username,
+        "hash_psw":hash_psw
+    };
+    const headers = {
+        "X-Signature":generateSignature(data),
+        "X-Timestamp":Date.now().toString(),
+    }
+    const response = await axios.post(api_url, headers);
+    return response.status === 200;
 }
+
+
 
 
 
